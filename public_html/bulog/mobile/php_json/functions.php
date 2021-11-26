@@ -1,4 +1,4 @@
-<?
+<?php
     date_default_timezone_set("Asia/Ujung_Pandang");
     include '../../db/connection.php';
  
