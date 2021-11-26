@@ -1,8 +1,5 @@
 <?php
 include 'functions.php';
-
-$res=$_GET['res'];
-$pg=$_GET['pg'];
  
 $sql = "SELECT * FROM app_settings where id_setting='1'";
  
