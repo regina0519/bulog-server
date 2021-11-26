@@ -350,4 +350,4 @@ MigrationBackup/
 .ionide/
 
 #My DB Connection PHP
-*/connection.php
+connection.php
