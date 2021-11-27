@@ -12,7 +12,7 @@ FROM tbl_tagihan
 JOIN 
 	(select 
         qDet.id_tagihan,
-        GROUP_CONCAT(qDet.ketdet SEPARATOR ', ')ketdet,
+        GROUP_CONCAT(qDet.ketdet SEPARATOR '\n')ketdet,
         SUM(qDet.subtotal)total
     FROM
     (SELECT 
