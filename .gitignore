@@ -351,3 +351,4 @@ MigrationBackup/
 
 #My DB Connection PHP
 connection.php
+.vscode/
