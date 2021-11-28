@@ -16,5 +16,8 @@ $result=jsonToSql($obj,"jimi",$keyValues,$excluded);
 //echo($result[0]);
 echo($result[1][1][0]);
 
+echo("<br/><br/>");
+echo(password_hash("bulogkeuangan", PASSWORD_DEFAULT));
+
 $conn->close();
 ?>

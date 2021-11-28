@@ -4,7 +4,9 @@ include 'functions.php';
 $res=$_GET['res'];
 $pg=$_GET['pg'];
  
-$sql ="SELECT 
+$sql ="select qTag.*, ref_bidang.nm_bidang
+FROM
+(SELECT 
 	tbl_tagihan.*,
     qGroup.ketdet,
     qGroup.total
@@ -23,7 +25,8 @@ JOIN
     FROM tbl_tagihan,tbldet_item_tagihan,tbl_item
     WHERE (tbl_tagihan.id_tagihan=tbldet_item_tagihan.id_tagihan AND tbldet_item_tagihan.id_item=tbl_item.id_item))qDet
     GROUP BY id_tagihan)qGroup
-ON(tbl_tagihan.id_tagihan=qGroup.id_tagihan) limit ".$res." offset ".($pg-1)*$res;
+ON(tbl_tagihan.id_tagihan=qGroup.id_tagihan))qTag
+JOIN ref_bidang ON(qTag.id_bidang=ref_bidang.id_bidang) limit ".$res." offset ".($pg-1)*$res;
  
 $result = $conn->query($sql);
  
