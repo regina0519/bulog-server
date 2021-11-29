@@ -21,7 +21,7 @@
         return substr($str, $subtring_start, $size);  
     }
 
-    function jsonToSql($recs,$tblName,$keyValues,$excluded){
+    function jsonToSql($recs,$tblName,$keyValues,$excluded,$conn){
         $index=0;
         $timestamp=date_create()->format('YmdHis');
         $prefix="";
@@ -38,12 +38,27 @@
             $primKeys=array();
             foreach ($keyValues as $key=>$value) {
                 $value=str_replace("TIMESTAMP",$timestamp,$value);
-                $value=preg_replace("/<DIGIT>(?s)(.*)<\/DIGIT>/i", str_pad($index+1, string_between_two_string($value, "<DIGIT>", "</DIGIT>"), '0', STR_PAD_LEFT), $value);
+                $valBU=preg_replace("/<DIGIT>(?s)(.*)<\/DIGIT>/i", "", $value);
+                $digit=string_between_two_string($value, "<DIGIT>", "</DIGIT>");
+                $sqlTmp="SELECT ".$key." FROM ".$tblName." WHERE ".$key." LIKE '".$valBU."%' ORDER BY ".$key." desc LIMIT 1";
+                $newInd=$index+1;
+                //echo($HostUser);
+                //$conn2 = new mysqli($HostName, $HostUser, $HostPass, $DatabaseName);
+                $resTmp = $conn->query($sqlTmp);
+                if ($resTmp->num_rows >0) {
+                    while($r = $resTmp->fetch_assoc()) {
+                        //echo $row[0]['nm_pegawai'];
+                        $v=$r[$key];
+                        $newInd=str_replace($valBU,"",$v)+$index+1;
+                        break;
+                     }
+                }
+                $value=preg_replace("/<DIGIT>(?s)(.*)<\/DIGIT>/i", str_pad($newInd, $digit, '0', STR_PAD_LEFT), $value);
                 foreach ($rec as $recKey=>$recValue) {
                     $value=str_replace("[".$recKey."]",$recValue,$value);
                 }
                 array_push($primKeys,$value);
-                $rec[$key]=$value;
+                if($rec[$key]=="")$rec[$key]=$value;
             }
             if($ret==""){
                 $ret="VALUES('".implode("','",$rec)."')";
