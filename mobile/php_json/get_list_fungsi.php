@@ -1,14 +1,8 @@
 <?php
 include 'functions.php';
 
-$res=$_GET['res'];
-$pg=$_GET['pg'];
  
-if($res==""){
-    $sql ="SELECT * FROM ref_bidang";
-}else{
-    $sql ="SELECT * FROM ref_bidang limit ".$res." offset ".($pg-1)*$res;
-}
+$sql ="SELECT * FROM ref_fungsi_disposisi";
  
 $result = $conn->query($sql);
  
