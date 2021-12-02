@@ -10,9 +10,15 @@ $pass=$obj['pass'];
 //$tmp=password_hash($pass, PASSWORD_DEFAULT);
 //echo $tmp."\n";
  
-$sql = "select tbl_pegawai.*, ref_jabatan.id_bidang, ref_jabatan.id_fungsi, ref_jabatan.nm_jab, ref_jabatan.singk_jab, ref_jabatan.adalah_kepala_bidang, ref_fungsi_disposisi.fungsi_disposisi, ref_fungsi_disposisi.ket_fungsi, ref_bidang.nm_bidang FROM tbl_pegawai,ref_jabatan,ref_fungsi_disposisi,ref_bidang
-WHERE (ref_jabatan.id_jab=tbl_pegawai.id_jab AND ref_jabatan.id_bidang=ref_bidang.id_bidang AND ref_jabatan.id_fungsi=ref_fungsi_disposisi.id_fungsi) AND
-(tbl_pegawai.aktif='1' AND tbl_pegawai.id_pegawai='".$user."')";
+$sql = "SELECT tbl_pegawai.*,qJoin.id_bidang,qJoin.id_fungsi,qJoin.nm_jab,qJoin.singk_jab,qJoin.adalah_kepala_bidang,qJoin.fungsi_disposisi,qJoin.ket_fungsi,qJoin.nm_bidang
+FROM tbl_pegawai JOIN
+(SELECT qJab.*, ref_bidang.nm_bidang
+FROM
+(SELECT ref_jabatan.*,ref_fungsi_disposisi.fungsi_disposisi,ref_fungsi_disposisi.ket_fungsi
+FROM ref_jabatan JOIN ref_fungsi_disposisi ON (ref_jabatan.id_fungsi=ref_fungsi_disposisi.id_fungsi))qJab
+LEFT JOIN ref_bidang ON (qJab.id_bidang=ref_bidang.id_bidang))qJoin
+ON (tbl_pegawai.id_jab=qJoin.id_jab)
+WHERE (aktif='1' AND id_pegawai='".$user."')";
  
 $result = $conn->query($sql);
  

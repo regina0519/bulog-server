@@ -1,6 +1,8 @@
 <?php
 include 'functions.php';
 
+echo(password_hash("bulogkeuangan",PASSWORD_DEFAULT));
+
 $res=$_GET['res'];
 $pg=$_GET['pg'];
  
