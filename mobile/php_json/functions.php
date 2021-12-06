@@ -1,4 +1,5 @@
 <?php
+    error_reporting(E_ALL ^ E_NOTICE);
     date_default_timezone_set("Asia/Ujung_Pandang");
     include '../../db/connection.php';
  
@@ -37,6 +38,9 @@
             }
             $primKeys=array();
             foreach ($keyValues as $key=>$value) {
+                foreach ($rec as $recKey=>$recValue) {
+                    $value=str_replace("[".$recKey."]",$recValue,$value);
+                }
                 $value=str_replace("TIMESTAMP",$timestamp,$value);
                 $valBU=preg_replace("/<DIGIT>(?s)(.*)<\/DIGIT>/i", "", $value);
                 $digit=string_between_two_string($value, "<DIGIT>", "</DIGIT>");
@@ -52,13 +56,15 @@
                         $newInd=str_replace($valBU,"",$v)+$index+1;
                         break;
                      }
-                }
+                }else{$index--;}
                 $value=preg_replace("/<DIGIT>(?s)(.*)<\/DIGIT>/i", str_pad($newInd, $digit, '0', STR_PAD_LEFT), $value);
-                foreach ($rec as $recKey=>$recValue) {
-                    $value=str_replace("[".$recKey."]",$recValue,$value);
+                
+                if($rec[$key]==""){
+                    $rec[$key]=$value;
+                    array_push($primKeys,$value);
+                }else{
+                    array_push($primKeys,$rec[$key]);
                 }
-                array_push($primKeys,$value);
-                if($rec[$key]=="")$rec[$key]=$value;
             }
             if($ret==""){
                 $ret="VALUES('".implode("','",$rec)."')";
