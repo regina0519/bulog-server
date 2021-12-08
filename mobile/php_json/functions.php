@@ -1,5 +1,5 @@
 <?php
-    error_reporting(E_ALL ^ E_NOTICE);
+    //error_reporting(E_ALL ^ E_NOTICE);
     date_default_timezone_set("Asia/Ujung_Pandang");
     include '../../db/connection.php';
  

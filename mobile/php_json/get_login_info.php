@@ -10,9 +10,9 @@ $pass=$obj['pass'];
 //$tmp=password_hash($pass, PASSWORD_DEFAULT);
 //echo $tmp."\n";
  
-$sql = "SELECT tbl_pegawai.*,qJoin.id_bidang,qJoin.id_fungsi,qJoin.nm_jab,qJoin.singk_jab,qJoin.adalah_kepala_bidang,qJoin.fungsi_disposisi,qJoin.ket_fungsi,qJoin.nm_bidang
+$sql = "SELECT tbl_pegawai.*,qJoin.id_bidang,qJoin.id_fungsi,qJoin.nm_jab,qJoin.singk_jab,qJoin.adalah_kepala_bidang,qJoin.fungsi_disposisi,qJoin.ket_fungsi,qJoin.nm_bidang,qJoin.kode_bidang
 FROM tbl_pegawai JOIN
-(SELECT qJab.*, ref_bidang.nm_bidang
+(SELECT qJab.*, ref_bidang.nm_bidang, ref_bidang.kode_bidang
 FROM
 (SELECT ref_jabatan.*,ref_fungsi_disposisi.fungsi_disposisi,ref_fungsi_disposisi.ket_fungsi
 FROM ref_jabatan JOIN ref_fungsi_disposisi ON (ref_jabatan.id_fungsi=ref_fungsi_disposisi.id_fungsi))qJab

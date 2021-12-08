@@ -3,7 +3,7 @@ include 'functions.php';
 
 $id=$_GET['id'];
  
-$sql ="SELECT * FROM tbl_tagihan WHERE id_tagihan='".$id."'";
+$sql ="SELECT tbl_tagihan.*, ref_bidang.nm_bidang, ref_bidang.kode_bidang FROM tbl_tagihan JOIN ref_bidang ON (tbl_tagihan.id_bidang=ref_bidang.id_bidang) WHERE id_tagihan='".$id."'";
 
  
 $result = $conn->query($sql);

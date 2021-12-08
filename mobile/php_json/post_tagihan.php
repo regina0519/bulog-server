@@ -32,7 +32,7 @@ if($tmp!=""){
 
 if($continue){
     $keyValuesTag=array("id_tagihan"=>"TAG_[id_bidang]_TIMESTAMP_<DIGIT>4</DIGIT>");
-    $excludedTag=array("det_array");
+    $excludedTag=array("det_array","nm_bidang","kode_bidang");
     $resultTag=jsonToSql($tags,"tbl_tagihan",$keyValuesTag,$excludedTag,$conn);
 
     $tagsId=$resultTag[1];
