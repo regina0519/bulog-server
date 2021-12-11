@@ -30,7 +30,7 @@ JOIN
     GROUP BY id_tagihan)qGroup
 ON(tbl_tagihan.id_tagihan=qGroup.id_tagihan))qTag
 JOIN ref_bidang ON(qTag.id_bidang=ref_bidang.id_bidang)
-WHERE (qTag.status_tagihan<>'COMPLETED' AND qTag.status_tagihan<>'FAILED')
+WHERE (qTag.status_tagihan='COMPLETED' OR qTag.status_tagihan='FAILED')
 AND ((";
 
 if($fungsi=="FUNGSI_001"){
@@ -58,6 +58,8 @@ if($fungsi=="FUNGSI_001"){
 $sql.="))";
 
 $sql.=" ORDER BY tgl_pembuatan DESC limit ".$res." offset ".($pg-1)*$res;
+ 
+//echo($sql);
 
 $result = $conn->query($sql);
  

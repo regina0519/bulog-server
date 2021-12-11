@@ -2,7 +2,14 @@
 include 'functions.php';
 
 $id=$_GET['id']; 
-$sql ="SELECT * FROM tbl_notifikasi WHERE id_pegawai='".$id."' ORDER BY tgl_notif DESC";
+$seen=$_GET['seen'];
+//$sql ="SELECT * FROM tbl_notifikasi WHERE id_pegawai='".$id."' ORDER BY tgl_notif DESC";
+if($seen!=null){
+    $sql ="SELECT * FROM tbl_notifikasi WHERE id_pegawai='".$id."' AND seen='".$seen."' ORDER BY tgl_kirim DESC";
+}else{
+    $sql ="SELECT * FROM tbl_notifikasi WHERE id_pegawai='".$id."' ORDER BY tgl_kirim DESC";
+}
+
  
 $result = $conn->query($sql);
  
