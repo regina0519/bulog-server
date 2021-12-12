@@ -79,6 +79,18 @@
         return $result;
     }
 
+    function stringTruncateIndo($str, $min, $char, $name) {
+        $arr = explode($char,$str);
+        if (count($arr) <= $min + 1) return $str;
+        $ret = "";
+        for ($i = 0; $i < $min; $i++) {
+            $ret .= $arr[$i];
+            if ($i < $min - 1) $ret .= $char;
+        }
+        $ret .= "," . $char . "dan " . (count($arr) - $min) . " " . $name . " lainnya";
+        return $ret;
+    }
+
 
     function konversi($x){
   
