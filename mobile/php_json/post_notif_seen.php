@@ -4,7 +4,7 @@ $json = file_get_contents('php://input');
 //$json='[{"id_notifikasi":"1","id_pegawai":"1","id_tagihan":"1","notif_title":"title","notif_desc":"hallo","sent":"1","seen":"0"}]';
 $obj = json_decode($json,true);
 
-$sql="UPDATE tbl_notifikasi SET sent='1' WHERE id_notifikasi='".$obj[0]["id_notifikasi"]."'";
+$sql="UPDATE tbl_notifikasi SET seen='1' WHERE id_notifikasi='".$obj[0]["id_notifikasi"]."'";
 //echo($result[0]);
 
 
