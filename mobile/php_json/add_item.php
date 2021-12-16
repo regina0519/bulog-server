@@ -1,6 +1,6 @@
 <?php
 include 'functions.php';
-
+//$json='{"id_item":"","nm_item":"Hhhhh","satuan":"Gghfh","harga_patokan":"965","ket_item":""}';
 $json = file_get_contents('php://input');
 $obj = json_decode($json,true);
 
@@ -19,7 +19,7 @@ $length=5;
 $strId = substr(str_repeat(0, $length).$newId, - $length);
  
 $sql = "INSERT INTO tbl_item(id_item,nm_item,satuan,harga_patokan,ket_item) VALUES('ITEM_".$now."_".$strId."','".$nmItem."','".$satuan."','".$hargaPatokan."','".$ketItem."')";
-
+//echo("<br><br>".$sql."<br><br>");
 
  
 if ($conn->query($sql) === TRUE) {

@@ -4,7 +4,7 @@ include 'functions.php';
 
 $f=$_GET['f'];
  
-$sql ="SELECT tbl_pegawai.id_pegawai
+$sql ="SELECT tbl_pegawai.id_pegawai, ref_jabatan.id_bidang
 FROM tbl_pegawai JOIN ref_jabatan ON tbl_pegawai.id_jab=ref_jabatan.id_jab
 WHERE ref_jabatan.id_fungsi='".$f."'";
  
